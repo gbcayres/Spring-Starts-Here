@@ -1,6 +1,9 @@
 # Capítulo 8
 
 * Implementando aplicações web dinâmicas
+* Passando dados para a view
+* Enviando dados do cliente para o servidor com HTTP
+* Usando métodos HTTP
 
 ## 💡 O que são Aplicações Web Dinâmicas?
 
@@ -54,7 +57,7 @@ Existem duas formas principais de enviar dados via requisições HTTP:
 
 ---
 
-## Métodos HTTP: GET e POST
+## Métodos HTTP
 
 Por padrão, as requisições usam o método HTTP GET, assim como a anotação `@RequestMapping`. Podemos especificar explicitamente o método HTTP desejado usando os argumentos `path` e `method` dentro da anotação `@RequestMapping`. Por exemplo:
 
@@ -62,7 +65,7 @@ Por padrão, as requisições usam o método HTTP GET, assim como a anotação `
 @RequestMapping(path = "/products", method = RequestMethod.GET)
 ```
 
-Alternativamente, é possível utilizar anotações mais específicas e convenientes, como `@GetMapping` ou `@PostMapping`, que tornam o código mais claro e conciso:
+Alternativamente, é possível — e preferível — utilizar anotações mais específicas e convenientes, como `@GetMapping` ou `@PostMapping`, que tornam o código mais claro e conciso:
 
 ```java
 @GetMapping("/products")
@@ -70,5 +73,12 @@ public String getProducts(Model model) {
     // Implementação
 }
 ```
+### Outros Métodos
+Métodos HTTP são definidos por um verbo e representam a intenção do cliente. Dentre os principais estão:
+
+* GET: Expressa a intenção do cliente de recuperar dados sem mudar nada.
+* POST: Expressa a intenção do cliente de adicionar dados ao servidor.
+* PUT: Expressa a intenção do cliente de mudar totalmente um dado gravado no servidor.
+* DELETE: Expressa a intenção do cliente de remover dados do servidor.
 
 Essas práticas tornam o código mais intuitivo, organizado e alinhado às boas práticas de desenvolvimento web.
