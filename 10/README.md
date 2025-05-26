@@ -1,8 +1,12 @@
 # Capítulo 10
-* Entendendo serviços REST
+* Entendendo REST
 * Implementando endpoints REST
+* JSON
+* Serialização e Desserialização
+* DTO
 * Gerenciando a resposta HTTP
 * Tratando exceções em REST
+*
 
 ## REST - *Representational State Transfer*
 Diferente de um protocolo ou tecnologia específica, REST (Representational State Transfer) é um estilo arquitetural que orienta como os recursos devem ser representados e manipulados por meio de requisições HTTP.
@@ -207,5 +211,20 @@ public class ControllerAdvice {
                 .body(errorDetails);
     }
 }
-
 ```
+
+### Usando `@RequestBody`
+Quando trabalhamos com APIs REST, é muito comum que o cliente envie dados no corpo da requisição HTTP — como um JSON contendo as informações de um novo recurso a ser criado (por exemplo, um novo produto ou usuário). Para mapear esses dados JSON de forma automática para objetos Java, o Spring oferece a anotação `@RequestBody`.
+
+A anotação `@RequestBody` informa ao Spring que o conteúdo do corpo da requisição deve ser desserializado e mapeado para um objeto Java, geralmente um DTO. Em outras palavras, quando um cliente envia uma requisição POST ou PUT com um JSON no corpo, o `@RequestBody` transforma esse JSON em um objeto que pode ser manipulado diretamente no método do controlador.
+
+Por exemplo:
+```java
+@PostMapping("/produtos")
+public ResponseEntity<ProdutoDTO> criarProduto(@RequestBody ProdutoDTO produtoDTO) {
+    // produtoDTO já contém os dados enviados no corpo da requisição
+    ProdutoDTO produtoSalvo = produtoService.salvar(produtoDTO);
+    return ResponseEntity.status(HttpStatus.CREATED).body(produtoSalvo);
+}
+```
+---
