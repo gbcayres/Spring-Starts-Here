@@ -6,7 +6,6 @@
 * DTO
 * Gerenciando a resposta HTTP
 * Tratando exceções em REST
-*
 
 ## REST - *Representational State Transfer*
 Diferente de um protocolo ou tecnologia específica, REST (Representational State Transfer) é um estilo arquitetural que orienta como os recursos devem ser representados e manipulados por meio de requisições HTTP.

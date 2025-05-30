@@ -21,14 +21,8 @@ public class ProductService {
     }
 
     public Product findById(UUID id) {
-        return Optional.of(products.get(id))
+        return Optional.ofNullable(products.get(id))
                 .orElseThrow(() -> new ProductNotFoundException(id));
-    }
-
-    public void delete(UUID id) {
-        if (products.remove(id) == null) {
-            throw new ProductNotFoundException(id);
-        }
     }
 
     public Product update(UUID id, ProductRequestDTO dto) {
@@ -38,6 +32,12 @@ public class ProductService {
         product.setPrice(dto.price());
 
         return product;
+    }
+
+    public void delete(UUID id) {
+        if (products.remove(id) == null) {
+            throw new ProductNotFoundException(id);
+        }
     }
 
     public List<Product> listAll() {
