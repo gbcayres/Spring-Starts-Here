@@ -32,10 +32,11 @@ public class ProductController {
     }
 
     @GetMapping
-    public List<ProductResponseDTO> listAllProducts() {
-        return productService.listAll().stream()
+    public ResponseEntity<List<ProductResponseDTO>> listAllProducts() {
+        List<ProductResponseDTO> products = productService.listAll().stream()
                 .map(this::toResponseDTO)
-                .collect(Collectors.toList());
+                .toList();
+        return ResponseEntity.ok(products);
     }
 
     @PostMapping

@@ -1,5 +1,6 @@
 package com.example.simple_rest_app.exception;
 
+import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ProblemDetail;
@@ -25,7 +26,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST,
                 "Validation error",
                 "One or more fields are invalid. Check 'fieldErrors' and try again.",
-                URI.create(request.getRequestURI())
+                request
         );
         problemDetail.setProperty("fieldErrors", errors);
 
@@ -39,7 +40,7 @@ public class GlobalExceptionHandler {
                 HttpStatus.BAD_REQUEST,
                 "Invalid param error.",
                 String.format("The '%s' param received the invalid value '%s'.", ex.getName(), ex.getValue()),
-                URI.create(request.getRequestURI())
+                request
         );
     }
 
@@ -50,15 +51,15 @@ public class GlobalExceptionHandler {
                 HttpStatus.NOT_FOUND,
                 "Product not found.",
                 ex.getMessage(),
-                URI.create(request.getRequestURI())
+                request
         );
     }
 
     private ProblemDetail createBaseProblemDetail(
-            HttpStatus status, String title, String detail, URI instance) {
+            HttpStatus status, String title, String detail, HttpServletRequest request) {
         ProblemDetail problemDetail = ProblemDetail.forStatusAndDetail(status, detail);
         problemDetail.setTitle(title);
-        problemDetail.setInstance(instance);
+        problemDetail.setInstance(URI.create(request.getRequestURI()));
         problemDetail.setProperty("timestamp", Instant.now());
         return problemDetail;
     }
