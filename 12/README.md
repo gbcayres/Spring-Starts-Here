@@ -8,7 +8,7 @@
 
 ## Fontes de Dados
 
-Uma fonte de dados (DataSource) é o componente responsável por gerenciar conexões com o banco de dados, abrindo e fechando conexões somente quando necessário para otimizar performance e evitar overhead. A JDK oferece abstrações essenciais para trabalhar com bancos relacionais, como ```Connection```, ```Statement``` e ```ResultSet```. Porém, para conectar-se a um banco específico — como MySQL, PostgreSQL, Oracle — precisamos de um driver JDBC fornecido por cada fornecedor de SGBD. Esse driver implementa as interfaces do JDBC e permite a comunicação com o banco.
+Uma fonte de dados (DataSource) é o componente responsável por gerenciar conexões com o banco de dados, abrindo e fechando conexões somente quando necessário para otimizar performance. A JDK oferece abstrações essenciais para trabalhar com bancos relacionais, como ```Connection```, ```Statement``` e ```ResultSet```. Porém, para conectar-se a um banco específico — como MySQL, PostgreSQL, Oracle — precisamos de um driver JDBC fornecido por cada fornecedor de SGBD. Esse driver implementa as interfaces do JDBC e permite a comunicação com o banco.
 
 Uma forma simples, mas pouco eficiente, de se conectar a um banco é usando diretamente o driver JDBC via ```DriverManager.getConnection()```, passando URL, usuário e senha para cada operação. Isso gera overhead porque a conexão é aberta e fechada toda vez, o que não é ideal para aplicações reais.
 
@@ -17,9 +17,9 @@ Para resolver isso, utilizamos a fonte de dados, que encapsula o gerenciamento d
 No ecossistema Spring, a implementação padrão de fonte de dados é o HikariCP — um connection pool moderno e performático, adotado por convenção no Spring Boot.
 
 ## JdbcTemplate
-Mesmo com uma fonte de dados eficiente, trabalhar diretamente com as classes JDBC da JDK pode ser verboso e propenso a erros, especialmente para operações simples.
+Mesmo com uma fonte de dados eficiente, trabalhar diretamente com as classes JDBC da JDK pode ser verboso e propenso a erros, mesmo para operações simples.
 
-O JdbcTemplate é uma ferramenta fornecida pelo Spring que simplifica o acesso a dados relacionais, abstraindo o boilerplate da API JDBC. É uma ótima escolha para projetos pequenos ou para quem está aprendendo a camada de persistência no Spring, já que evita a dependência de frameworks mais complexos como JPA/Hibernate.
+O **JdbcTemplate** é uma ferramenta fornecida pelo Spring que simplifica o acesso a dados relacionais, abstraindo o boilerplate da API JDBC. É uma ótima escolha para projetos pequenos ou para quem está aprendendo a camada de persistência no Spring, já que evita a dependência de frameworks mais complexos como JPA/Hibernate.
 
 No desenvolvimento com Spring, é comum organizar o acesso a dados em classes chamadas repositories, que encapsulam as operações de persistência.
 
@@ -199,9 +199,7 @@ public class ProjectConfig {
 }
 ```
 
-Note que usamos ```@Value``` para injetar os valores diretamente do arquivo de propriedades da aplicação, mantendo o código limpo e flexível.
-
-E junto a isso, no ```application.properties```, definimos os valores customizados:
+Note que usamos ```@Value``` para injetar os valores diretamente do arquivo de propriedades. Junto a isso, no ```application.properties```, definimos os valores customizados:
 
 
 ```properties
