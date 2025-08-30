@@ -42,4 +42,4 @@ No caso de transações, usamos a anotação @Transactional para declarar que um
 
 * Se o método capturar a exceção internamente e não a relançar, o proxy nunca saberá que houve falha. Nesse caso, ele assumirá que tudo ocorreu bem e fará o commit — mesmo que a lógica de negócio tenha dado errado.
 
-Em outras palavras, se você tratar uma exceção dentro de um método anotado com ```@Transactional```, precisa estar ciente de que isso desabilita o rollback automático.
+Em outras palavras, quando tratamos uma exceção dentro de um método anotado com ```@Transactional```, precisamos estar cientes de que isso desabilita o rollback automático.
