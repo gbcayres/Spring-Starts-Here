@@ -3,6 +3,7 @@ services:
     image: postgres:16-alpine
     container_name: postgres
     environment:
+      JAVA_TOOL_OPTIONS: -Xmx512 -Xms256m
       POSTGRES_DB: ${DB}
       POSTGRES_USER: ${DB_USER}
       POSTGRES_PASSWORD: ${DB_PASSWORD}
@@ -28,7 +29,6 @@ services:
       SPRING_DATASOURCE_URL: ${DB_URL}
       SPRING_DATASOURCE_USERNAME: ${DB_USER}
       SPRING_DATASOURCE_PASSWORD: ${DB_PASSWORD}
-      JAVA_OPTS: "-Xms128m -Xmx256m"
     depends_on:
       db:
         condition: service_healthy

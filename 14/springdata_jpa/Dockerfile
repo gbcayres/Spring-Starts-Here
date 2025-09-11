@@ -31,6 +31,4 @@ COPY --chown=appuser:app --from=build /app/target/app.jar app.jar
 
 EXPOSE 8080
 
-ENV JAVA_OPTS=""
-ENTRYPOINT ["/jre/bin/java"]
-CMD ["-jar", "app.jar"]
+ENTRYPOINT ["/jre/bin/java", "-jar", "app.jar"]
