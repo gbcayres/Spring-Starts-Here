@@ -1,13 +1,14 @@
-package entities;
+package com.example.springdatajpa_crud.entities;
 
 import jakarta.persistence.*;
 
 import java.math.BigDecimal;
+
 import java.util.UUID;
 
 @Entity
 @Table(name = "products")
-public class Product {
+public class Product extends Auditable {
     @Id
     private UUID id;
 

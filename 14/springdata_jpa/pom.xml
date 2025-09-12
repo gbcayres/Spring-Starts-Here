@@ -9,9 +9,9 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.example</groupId>
-	<artifactId>springdatajpa-crud</artifactId>
+	<artifactId>springdatajpa_crud</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>springdatajpa-crud</name>
+	<name>springdatajpa_crud</name>
 	<description>Demo project for Spring Boot</description>
 	<url/>
 	<licenses>
