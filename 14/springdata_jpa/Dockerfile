@@ -6,14 +6,15 @@ FROM ${MAVEN_IMAGE} AS build
 
 WORKDIR /app
 
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
+COPY pom.xml ./
 
 RUN --mount=type=cache,id=maven,target=/root/.m2 \
-    chmod +x mvnw && ./mvnw dependency:go-offline
+    mvn dependency:go-offline
 
 COPY src ./src
-RUN ./mvnw -B -DskipTests clean package
+
+RUN --mount=type=cache,id=maven,target=/root/.m2 \
+    mvn -DskipTests clean package
 
 RUN jlink --module-path $JAVA_HOME/jmods --add-modules java.base,java.compiler,\
 java.desktop,java.instrument,java.logging,java.management,java.naming,java.net.http,java.prefs,\

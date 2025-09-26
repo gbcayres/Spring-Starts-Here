@@ -9,14 +9,22 @@ import java.util.UUID;
 @Entity
 @Table(name = "products")
 public class Product extends Auditable {
+
     @Id
     private UUID id;
 
-    @Column(nullable = false, length = 150)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id", nullable = false)
+    private Category category;
+
+    @Column(nullable = false)
     private String name;
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+
+    @Column(nullable = false)
+    private String description;
 
     @Column(nullable = false)
     private int stockQuantity;
@@ -24,7 +32,8 @@ public class Product extends Auditable {
     public Product() {
     }
 
-    public Product(String name, BigDecimal price, int stockQuantity) {
+    public Product(UUID id, String name, BigDecimal price, int stockQuantity) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.stockQuantity = stockQuantity;
