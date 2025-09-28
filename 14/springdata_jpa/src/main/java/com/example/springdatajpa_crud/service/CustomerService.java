@@ -5,7 +5,12 @@ import com.example.springdatajpa_crud.dto.CustomerResponse;
 import com.example.springdatajpa_crud.entities.Customer;
 import com.example.springdatajpa_crud.mapper.CustomerMapper;
 import com.example.springdatajpa_crud.repository.CustomerRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.List;
 
 @Service
 public class CustomerService {
@@ -17,6 +22,7 @@ public class CustomerService {
         this.mapper = mapper;
     }
 
+    @Transactional
     public CustomerResponse addCustomer(CustomerRequest request) {
         if (repository.existsCustomerByEmail(request.email())) {
             throw new IllegalArgumentException("There is already a customer with that email.");
@@ -27,5 +33,10 @@ public class CustomerService {
         Customer saved = repository.save(entity);
 
         return mapper.toDto(saved);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<CustomerResponse> listCustomers(Pageable pageable) {
+        return repository.findAll(pageable).map(mapper::toDto);
     }
 }

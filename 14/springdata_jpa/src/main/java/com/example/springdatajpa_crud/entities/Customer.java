@@ -3,6 +3,7 @@ package com.example.springdatajpa_crud.entities;
 import jakarta.persistence.*;
 import org.hibernate.annotations.UuidGenerator;
 
+import java.util.List;
 import java.util.UUID;
 
 @Entity
@@ -18,6 +19,9 @@ public class Customer extends Auditable {
 
     @Column(nullable = false, unique = true)
     private String email;
+
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Order> orders;
 
     public Customer() {
     }
