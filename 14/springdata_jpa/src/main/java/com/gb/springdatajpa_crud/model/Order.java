@@ -1,4 +1,4 @@
-package com.example.springdatajpa_crud.entities;
+package com.gb.springdatajpa_crud.model;
 
 import jakarta.persistence.*;
 
@@ -7,7 +7,7 @@ import java.time.Instant;
 import java.util.List;
 import java.util.UUID;
 
-import com.example.springdatajpa_crud.enums.OrderStatus;
+import com.gb.springdatajpa_crud.enums.OrderStatus;
 import org.hibernate.annotations.UuidGenerator;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;

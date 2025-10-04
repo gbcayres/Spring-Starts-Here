@@ -1,4 +1,4 @@
-package com.example.springdatajpa_crud.dto;
+package com.gb.springdatajpa_crud.dto;
 
 import java.util.UUID;
 

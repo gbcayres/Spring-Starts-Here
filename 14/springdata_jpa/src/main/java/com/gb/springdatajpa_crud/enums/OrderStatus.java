@@ -1,4 +1,4 @@
-package com.example.springdatajpa_crud.enums;
+package com.gb.springdatajpa_crud.enums;
 
 public enum OrderStatus {
     CREATED,

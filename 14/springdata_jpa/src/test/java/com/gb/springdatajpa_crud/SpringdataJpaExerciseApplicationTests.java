@@ -1,4 +1,4 @@
-package com.example.springdatajpa_crud;
+package com.gb.springdatajpa_crud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

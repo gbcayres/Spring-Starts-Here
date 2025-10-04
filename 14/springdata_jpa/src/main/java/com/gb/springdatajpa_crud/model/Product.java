@@ -1,4 +1,4 @@
-package com.example.springdatajpa_crud.entities;
+package com.gb.springdatajpa_crud.model;
 
 import jakarta.persistence.*;
 
