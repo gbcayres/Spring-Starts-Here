@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS orders (
     total NUMERIC(10,2) NOT NULL CHECK (total > 0),
     created_at timestamptz NOT NULL,
     FOREIGN KEY (customer_id) REFERENCES customers(id),
-    CONSTRAINT check_status CHECK (status IN ('PENDING', 'IN_PROGRESS', 'COMPLETED', 'CANCELLED'))
+    CONSTRAINT check_status CHECK (status IN ('CREATED', 'PAID', 'CANCELLED'))
 );
 
 CREATE TABLE IF NOT EXISTS order_items (

@@ -7,7 +7,7 @@ import com.gb.springdatajpa_crud.mapper.ValidationErrorMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 
-import jakarta.validation.Validation;
+import org.slf4j.Logger;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -19,6 +19,8 @@ import java.util.List;
 
 @ControllerAdvice
 public class GlobalExceptionHandler {
+
+    Logger logger = org.slf4j.LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     private final ValidationErrorMapper validationErrorMapper;
 
@@ -94,6 +96,8 @@ public class GlobalExceptionHandler {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<ProblemDetail> handleUnexpectedException(Exception ex, HttpServletRequest request) {
+        logger.error("Unexpected error occurred.", ex);
+
         var problemDetail = ProblemDetailBuilder.createProblemDetailfromErrorCode(ErrorCode.INTERNAL_SERVER_ERROR)
                 .withDetail("An unexpected error occurred.")
                 .withInstance(request.getRequestURI())

@@ -1,0 +1,2 @@
+ALTER TABLE orders
+ADD column version BIGINT NOT NULL DEFAULT 0;

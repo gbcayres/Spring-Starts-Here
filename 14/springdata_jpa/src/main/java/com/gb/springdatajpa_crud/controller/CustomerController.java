@@ -15,25 +15,13 @@ import java.net.URI;
 import java.util.UUID;
 
 @RestController
-@RequestMapping("/api/customers")
+@RequestMapping("/api/v1/customers")
 public class CustomerController {
 
     private final CustomerService customerService;
 
     public CustomerController(CustomerService customerService) {
         this.customerService = customerService;
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<CustomerResponse> get(@PathVariable UUID id) {
-        CustomerResponse customer = customerService.getCustomer(id);
-        return ResponseEntity.ok(customer);
-    }
-
-    @GetMapping
-    public ResponseEntity<Page<CustomerResponse>> list(@PageableDefault(size = 20, sort = "name") Pageable pageable) {
-        Page<CustomerResponse> customers = customerService.listCustomers(pageable);
-        return ResponseEntity.ok(customers);
     }
 
     @PostMapping
@@ -48,4 +36,21 @@ public class CustomerController {
 
         return ResponseEntity.created(location).body(created);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<CustomerResponse> get(@PathVariable UUID id) {
+        CustomerResponse customer = customerService.getCustomer(id);
+        return ResponseEntity.ok(customer);
+    }
+
+    @GetMapping
+    public ResponseEntity<Page<CustomerResponse>> list(@PageableDefault(size = 20, sort = "name") Pageable pageable) {
+        Page<CustomerResponse> customers = customerService.listCustomers(pageable);
+        return ResponseEntity.ok(customers);
+    }
+
+    /*@PutMapping("/{id}")
+    public ResponseEntity<CustomerResponse> update(@Valid @RequestBody CustomerRequest request) {
+        //
+    } */
 }
