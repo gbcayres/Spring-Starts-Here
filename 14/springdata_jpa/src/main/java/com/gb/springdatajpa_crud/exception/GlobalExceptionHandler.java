@@ -7,20 +7,18 @@ import com.gb.springdatajpa_crud.mapper.ValidationErrorMapper;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.ConstraintViolationException;
 
-import org.slf4j.Logger;
 import org.springframework.http.ProblemDetail;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
-import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
+import java.net.URI;
 import java.util.List;
 
-@ControllerAdvice
+@RestControllerAdvice
 public class GlobalExceptionHandler {
-
-    Logger logger = org.slf4j.LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
     private final ValidationErrorMapper validationErrorMapper;
 
@@ -94,9 +92,33 @@ public class GlobalExceptionHandler {
         return responseFromProblemDetail(problemDetail);
     }
 
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ProblemDetail> handleRuntimeException(Exception ex, HttpServletRequest request) throws Exception {
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger")) {
+            throw ex;
+        }
+
+
+        var problemDetail = ProblemDetailBuilder.createProblemDetailfromErrorCode(ErrorCode.INTERNAL_SERVER_ERROR)
+                .withDetail("An unexpected error occurred.")
+                .withInstance(request.getRequestURI())
+                .build();
+
+        return responseFromProblemDetail(problemDetail);
+    }
+
     @ExceptionHandler(Exception.class)
-    public ResponseEntity<ProblemDetail> handleUnexpectedException(Exception ex, HttpServletRequest request) {
-        logger.error("Unexpected error occurred.", ex);
+    public ResponseEntity<ProblemDetail> handleGeneric(Exception ex, HttpServletRequest request) throws Exception {
+        String path = request.getRequestURI();
+
+        if (path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger")) {
+            throw ex;
+        }
+
 
         var problemDetail = ProblemDetailBuilder.createProblemDetailfromErrorCode(ErrorCode.INTERNAL_SERVER_ERROR)
                 .withDetail("An unexpected error occurred.")
